@@ -283,7 +283,7 @@
                         <td><img width="150" src="${cart[i].image}" alt=""></td>
                         <td>${cart[i].price}</td>
                         <td>
-                            <input type="number" value="${cart[i].quantity}">
+                            <input onchange="changeUnit(this, ${cart[i].id})" type="number" value="${cart[i].quantity}">
                             <button onclick="removeProduct(${cart[i].id})">X</button>
                         </td>
                         <td>${cart[i].price * cart[i].quantity}</td>
@@ -309,6 +309,21 @@
                 }
             }
             checkout();
+        }
+
+        function changeUnit(e, id){
+            var inputValue = e.value;
+            if(inputValue > 0){
+                for(var i = 0; i < cart.length; i++){
+                    if(cart[i].id == id){
+                        cart[i].quantity = inputValue;
+                        break;
+                    }
+                }
+                checkout();
+            }else {
+                removeProduct(id);
+            }
         }
     
 
